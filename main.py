@@ -25,4 +25,3 @@ if __name__ == "__main__":
     # which automatically restarts the server when code changes are detected.
 
     uvicorn.run(app="main:app", host="0.0.0.0", port=8000, reload=True)
-
