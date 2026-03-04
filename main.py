@@ -14,7 +14,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # What clients are allowed?
     allow_credentials=True,  # i.e. SSL, TLS
-    allow_methods=["*"],  # i.e. GET, POST PUT, etc.
+    allow_methods=["*"],  # i.e. HTTP CRUD operations like GET, POST PUT, etc.
     allow_headers=["*"],  # additional information included with requests
 )
 
@@ -25,3 +25,4 @@ if __name__ == "__main__":
     # which automatically restarts the server when code changes are detected.
 
     uvicorn.run(app="main:app", host="0.0.0.0", port=8000, reload=True)
+
