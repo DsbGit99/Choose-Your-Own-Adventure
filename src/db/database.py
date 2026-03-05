@@ -24,4 +24,7 @@ def get_db():
 
 
 def create_tables():
+    """When we first create this application, we need to create all of the tables
+    based on the data model's we've defined.
+    """
     Base.metadata.create_all(bind=engine)
