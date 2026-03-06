@@ -24,7 +24,7 @@ class CompleteStoryNodeResponse(StoryNodeBase):
 
 class StoryBase(BaseModel):
     title: int
-    session_id: List[StoryOptionsSchema] = []
+    session_id: Optional[str] = None
 
     model_config = SettingsConfigDict(from_attributes=True)
 
