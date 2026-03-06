@@ -43,4 +43,4 @@ class CompleteStoryResponse(StoryBase):
 
 
 # NOTE: model_config = SettingsConfigDict(from_attributes = True)
-# enables Pydantic V2 models to populatefields directly from ORM object attributes
+# enables Pydantic V2 models to populate fields directly from ORM object attributes
