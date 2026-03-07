@@ -27,13 +27,6 @@ class Settings(BaseSettings):
 
     @field_validator("ALLOWED_ORIGINS")
     def parse_allowed_origins(cls, v: str) -> list[str]:
-        # match v:
-        #     case str:
-        #         if v == "":
-        #             if True:
-        #                 print("None")
-        #             else:
-        #                 print("False")
         return v.split(",") if v else []
 
 
