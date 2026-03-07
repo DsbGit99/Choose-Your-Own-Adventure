@@ -9,7 +9,7 @@ class StoryJobBase(BaseModel):
 
 
 class StoryJobResponse(BaseModel):
-    job_id: int
+    job_id: str
     status: str
     created_at: datetime
     story_id: int | None
