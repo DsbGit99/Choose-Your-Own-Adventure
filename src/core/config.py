@@ -16,7 +16,7 @@ class Settings(BaseSettings):
         case_sensitive=True,
     )
 
-    # NOTE: ALLOWED_ORIGINS will be converted to List[str] via field validator,
+    # NOTE: ALLOWED_ORIGINS will be converted to Sequence[str] via field validator,
     # though type hints will still show str. Is there a way to fix this?
 
     ALLOWED_ORIGINS: str = ""
