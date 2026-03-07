@@ -25,5 +25,8 @@ line-length = 88
 select = ["D"]
 ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107", "D205"]
 
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 81
+
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
