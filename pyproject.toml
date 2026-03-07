@@ -19,7 +19,7 @@ dev = [
 ]
 
 [tool.ruff]
-line-length = 96
+line-length = 88
 
 [tool.ruff.lint]
 select = ["D"]
