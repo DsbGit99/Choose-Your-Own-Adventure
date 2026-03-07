@@ -37,7 +37,7 @@ ignore = [
     "ERA001",   # commented out code
     "FIX002",
     "N805",     # first argument of a method should be named `self`
-    "S104",     # Possible binding to all interfaces (host="0.0.0.0")
+    "S104",     # binding to all interfaces (host="0.0.0.0")
     "TD002",
     "TD003",
 ]
