@@ -25,7 +25,8 @@ app.add_middleware(
 if __name__ == "__main__":
     import uvicorn
 
-    # NOTE: The "reload" parameter here enables auto-reloading during development,
-    # which automatically restarts the server when code changes are detected.
+    # NOTE: The "reload" parameter here enables auto-reloading during
+    # development, which automatically restarts the server when code changes are
+    # detected.
 
     uvicorn.run(app="main:app", host="0.0.0.0", port=8000, reload=True)

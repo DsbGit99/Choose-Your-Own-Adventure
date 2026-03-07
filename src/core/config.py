@@ -1,7 +1,5 @@
-from typing import List
-from pydantic_settings import BaseSettings, SettingsConfigDict
-
 from pydantic import field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -16,8 +14,9 @@ class Settings(BaseSettings):
         case_sensitive=True,
     )
 
-    # NOTE: ALLOWED_ORIGINS will be converted to Sequence[str] via field validator,
-    # though type hints will still show str. Is there a way to fix this?
+    # NOTE: ALLOWED_ORIGINS will be converted to Sequence[str] via field
+    # validator though type hints will still show str.
+    # Is there a way to fix this?
 
     ALLOWED_ORIGINS: str = ""
     API_PREFIX: str = "/api"
@@ -27,7 +26,14 @@ class Settings(BaseSettings):
     OPEN_AI_KEY: str = ""
 
     @field_validator("ALLOWED_ORIGINS")
-    def parse_allowed_origins(cls, v: str) -> List[str]:
+    def parse_allowed_origins(cls, v: str) -> list[str]:
+        # match v:
+        #     case str:
+        #         if v == "":
+        #             if True:
+        #                 print("None")
+        #             else:
+        #                 print("False")
         return v.split(",") if v else []
 
 

@@ -1,12 +1,12 @@
-from typing import Optional, Dict, List
 from datetime import datetime
+
 from pydantic import BaseModel
 from pydantic_settings import SettingsConfigDict
 
 
 class StoryOptionsSchema(BaseModel):
     text: str
-    node_id: Optional[int] = None
+    node_id: int | None = None
 
 
 class StoryNodeBase(BaseModel):
@@ -17,14 +17,14 @@ class StoryNodeBase(BaseModel):
 
 class CompleteStoryNodeResponse(StoryNodeBase):
     id: int
-    options: List[StoryOptionsSchema] = []
+    options: list[StoryOptionsSchema] = []
 
     model_config = SettingsConfigDict(from_attributes=True)
 
 
 class StoryBase(BaseModel):
     title: int
-    session_id: Optional[str] = None
+    session_id: str | None = None
 
     model_config = SettingsConfigDict(from_attributes=True)
 
@@ -37,10 +37,11 @@ class CompleteStoryResponse(StoryBase):
     id: int
     created_at: datetime
     root_node: CompleteStoryNodeResponse
-    all_nodes: Dict[int, CompleteStoryNodeResponse]
+    all_nodes: dict[int, CompleteStoryNodeResponse]
 
     model_config = SettingsConfigDict(from_attributes=True)
 
 
 # NOTE: model_config = SettingsConfigDict(from_attributes = True)
-# enables Pydantic V2 models to populate fields directly from ORM object attributes
+# enables Pydantic V2 models to populate fields directly from ORM object
+# attributes

@@ -22,8 +22,22 @@ dev = [
 line-length = 88    # can increase up to 120 if needed
 
 [tool.ruff.lint]
-select = ["D"]
-ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107", "D205"]
+select = ["ALL"]
+ignore = [
+    "COM812",   # is a conflicting formater
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    "D205",
+    "ERA001",   # commented out code
+    "N805",     # first argument of a method should be named `self`
+    "S104",     # Possible binding to all interfaces (host="0.0.0.0")
+]
 
 [tool.ruff.lint.pycodestyle]
 max-doc-length = 81
