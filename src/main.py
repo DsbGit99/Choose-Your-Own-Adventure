@@ -7,9 +7,11 @@ app = FastAPI(
     title="Choose Your Own Adventure Game API",
     description="An API to generate stories for *Choose Your Own Adventure*.",
     version="0.1.0",
-    docs_url="/docs",  # FastAPI comes with automatic documenation viewable from web browser
+    docs_url="/docs",
     redoc_url="/redoc",
 )
+
+# NOTE: FastAPI comes with automatic documenation viewable from web browser
 
 # Cross Origin Resource Sharing (CORS) is a security layer
 app.add_middleware(
