@@ -9,18 +9,18 @@ class Settings(BaseSettings):
     # validator though type hints will still show str.
     # Is there a way to fix this?
 
-    ALLOWED_ORIGINS: str = ""
-    API_PREFIX: str = "/api"
-    DEBUG: bool = False
+    ALLOWED_ORIGINS: str
+    API_PREFIX: str
+    DEBUG: bool
 
-    DATABASE_URL: str = ""
-    OPEN_AI_KEY: str = ""
+    DATABASE_URL: str
+    # OPEN_AI_KEY: str
 
     # NOTE: Prviously in Pydantic v1, a nested Config class was needed.
     # Using model_config: SettingsConfigDict is new in Pydantic v2.
 
     model_config = SettingsConfigDict(
-        env=".env",
+        env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=True,
     )
