@@ -21,7 +21,7 @@ router = APIRouter(
 )
 
 
-def get_session_id(session_id: str | None = Cookie(None)) -> None:
+def get_session_id(session_id: str | None = Cookie(None)) -> str:
     # NOTE: Session ID is not about authentication, but rather is purposed for
     # identidying a particular browser session. Say, for instance, your browser
     # times out. The session ID allows you to releod the prvious state of your
@@ -40,7 +40,7 @@ def create_story(
     response: Response,
     session_id: str,
     db: Annotated[Session, Depends(get_db)],
-) -> None:
+) -> StoryJob:
 
     response.set_cookie(key="session_id", value=session_id, httponly=True)
 
