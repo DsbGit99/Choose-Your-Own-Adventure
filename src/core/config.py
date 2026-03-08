@@ -19,6 +19,10 @@ class Settings(BaseSettings):
     # NOTE: Prviously in Pydantic v1, a nested Config class was needed.
     # Using model_config: SettingsConfigDict is new in Pydantic v2.
 
+    # NOTE: There must exist the same vars in .env as the specified fields here.
+    # Furthermore, make sure that rather than `env=".env"` we are rather using
+    # `env_file=".env"`.
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
