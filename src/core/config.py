@@ -16,12 +16,14 @@ class Settings(BaseSettings):
     DATABASE_URL: str
     # OPEN_AI_KEY: str
 
-    # NOTE: Prviously in Pydantic v1, a nested Config class was needed.
+    # NOTE: Previously in Pydantic v1, a nested Config class was needed.
     # Using model_config: SettingsConfigDict is new in Pydantic v2.
 
     # NOTE: There must exist the same vars in .env as the specified fields here.
     # Furthermore, make sure that rather than `env=".env"` we are rather using
     # `env_file=".env"`.
+
+    # NOTE: Must run via `uv run src/main.py`.
 
     model_config = SettingsConfigDict(
         env_file=".env",
