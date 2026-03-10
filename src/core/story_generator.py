@@ -20,7 +20,7 @@ class StoryGenerator:
         # Get LLM
         llm = cls._get_llm()
 
-        # Get promt
+        # Get prompt
         story_parser = PydanticOutputParser(pydantic_object=StoryLLMResponse)
 
         prompt = (
