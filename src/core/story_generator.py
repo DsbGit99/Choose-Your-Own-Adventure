@@ -58,30 +58,25 @@ class StoryGenerator:
     def _process_story_node(
         cls, db: Session, story_id: int, node_data: StoryNodeLLM, is_root: bool = False
     ) -> StoryNode:
-        # Get StoryNode params
-        content = (
-            node_data.content if hasattr(node_data, "content") else node_data["content"]
-        )
-
-        is_ending = (
-            node_data.is_ending
-            if hasattr(node_data, "isEnding")
-            else node_data["isEnding"]
-        )
-
-        is_winning_ending = (
-            node_data.is_winning_ending
-            if hasattr(node_data, "isWinningEnding")
-            else node_data["isWinningEnding"]
-        )
-
         # Get StoryNode
         node = StoryNode(
             story_id=story_id,
-            content=content,
+            content=(
+                node_data.content
+                if hasattr(node_data, "content")
+                else node_data["content"]
+            ),
             is_root=is_root,
-            is_ending=is_ending,
-            is_winning_ending=is_winning_ending,
+            is_ending=(
+                node_data.is_ending
+                if hasattr(node_data, "isEnding")
+                else node_data["isEnding"]
+            ),
+            is_winning_ending=(
+                node_data.is_winning_ending
+                if hasattr(node_data, "isWinningEnding")
+                else node_data["isWinningEnding"]
+            ),
             options=[],
         )
 
@@ -93,16 +88,15 @@ class StoryGenerator:
             return node
 
         # Recursive tree traversal (begin DFS)
+        # (will get and validate child node data; then process and append)
         options_list = []
 
         for options_data in node_data.options:
-            # Get and validate root node data
             next_node = options_data.next_node
 
             if isinstance(next_node, dict):
                 next_node = StoryNodeLLM.model_validate(next_node)
 
-            # Process child story node and append to options list
             child_node = cls._process_story_node(db, story_id, next_node, is_root=False)
             options_list.append({"text": options_data.text, "node_id": child_node.id})
 
