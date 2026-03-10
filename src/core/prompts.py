@@ -24,26 +24,26 @@ STORY_PROMPT = """
 """
 
 json_structure = """
-        {
-            "title": "Story Title",
-            "rootNode": {
-                "content": "The starting situation of the story",
-                "isEnding": false,
-                "isWinningEnding": false,
-                "options": [
-                    {
-                        "text": "Option 1 text",
-                        "nextNode": {
-                            "content": "What happens for option 1",
-                            "isEnding": false,
-                            "isWinningEnding": false,
-                            "options": [
-                                // More nested options
-                            ]
-                        }
-                    },
-                    // More options for root node
-                ]
-            }
+    {
+        "title": "Story Title",
+        "rootNode": {
+            "content": "The starting situation of the story",
+            "isEnding": false,
+            "isWinningEnding": false,
+            "options": [
+                {
+                    "text": "Option 1 text",
+                    "nextNode": {
+                        "content": "What happens for option 1",
+                        "isEnding": false,
+                        "isWinningEnding": false,
+                        "options": [
+                            // More nested options
+                        ]
+                    }
+                },
+                // More options for root node
+            ]
         }
+    }
 """
