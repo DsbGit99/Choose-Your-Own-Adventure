@@ -23,16 +23,12 @@ class StoryGenerator:
         # Get prompt
         story_parser = PydanticOutputParser(pydantic_object=StoryLLMResponse)
 
-        prompt = (
-            ChatPromptTemplate()
-            .from_messages(
-                [
-                    ("system", STORY_PROMPT),
-                    ("human", f"Create the story with this theme: {theme}"),
-                ]
-            )
-            .partial(format_instructions=story_parser.get_format_instructions)
-        )
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", STORY_PROMPT),
+                ("human", f"Create the story with this theme: {theme}"),
+            ]
+        ).partial(format_instructions=story_parser.get_format_instructions())
 
         # Send promt to LLM
         raw_response = llm.invoke(prompt.invoke({}))
