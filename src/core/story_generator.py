@@ -37,8 +37,8 @@ class StoryGenerator:
         )
 
         story_structure = story_parser.parse(response_text)
-
         story_db = Story(title=story_structure.title, session_id=session_id)
+
         db.add(story_db)
         db.flush()
 
@@ -49,7 +49,7 @@ class StoryGenerator:
             root_node_data = StoryNodeLLM.model_validate(root_node_data)
 
         # Process story node, commit to db, and return story_db
-        # (TODO: _process_story_node)
+        cls._process_story_node(db, story_db.id, root_node_data, is_root=True)
 
         db.commit()
         return story_db
@@ -58,4 +58,56 @@ class StoryGenerator:
     def _process_story_node(
         cls, db: Session, story_id: int, node_data: StoryNodeLLM, is_root: bool = False
     ) -> StoryNode:
-        pass
+        # Get StoryNode params
+        content = (
+            node_data.content if hasattr(node_data, "content") else node_data["content"]
+        )
+
+        is_ending = (
+            node_data.is_ending
+            if hasattr(node_data, "isEnding")
+            else node_data["isEnding"]
+        )
+
+        is_winning_ending = (
+            node_data.is_winning_ending
+            if hasattr(node_data, "isWinningEnding")
+            else node_data["isWinningEnding"]
+        )
+
+        # Get StoryNode
+        node = StoryNode(
+            story_id=story_id,
+            content=content,
+            is_root=is_root,
+            is_ending=is_ending,
+            is_winning_ending=is_winning_ending,
+            options=[],
+        )
+
+        db.add(node)
+        db.flush()
+
+        # Return if node does not have children (local max depth reached)
+        if not node.is_ending and (hasattr(node_data, "options") and node_data.options):
+            return node
+
+        # Recursive tree traversal (begin DFS)
+        options_list = []
+
+        for options_data in node_data.options:
+            # Get and validate root node data
+            next_node = options_data.next_node
+
+            if isinstance(next_node, dict):
+                next_node = StoryNodeLLM.model_validate(next_node)
+
+            # Process child story node and append to options list
+            child_node = cls._process_story_node(db, story_id, next_node, is_root=False)
+            options_list.append({"text": options_data.text, "node_id": child_node.id})
+
+        # Set node.options to options_list and return node (end DFS)
+        node.options = options_list
+
+        db.flush()
+        return node
