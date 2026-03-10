@@ -52,7 +52,7 @@ class StoryGenerator:
         if isinstance(root_node_data, dict):
             root_node_data = StoryNodeLLM.model_validate(root_node_data)
 
-        # Process story noode, commit to db, and return story_db
+        # Process story node, commit to db, and return story_db
         # (TODO: _process_story_node)
 
         db.commit()
