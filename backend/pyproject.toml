@@ -1,0 +1,51 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[all]>=0.134.0",
+    "langchain-openai>=1.1.10",
+    "psycopg2-binary>=2.9.11",
+    "python-dotenv>=1.2.1",
+    "sqlalchemy>=2.0.47",
+    "uvicorn>=0.41.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.4",
+]
+
+[tool.ruff]
+line-length = 88    # can increase up to 120 if needed
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "COM812",   # is a conflicting formater
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D106",
+    "D107",
+    "D205",
+    "ERA001",   # commented out code
+    "FBT001",
+    "FBT002",
+    "FIX002",
+    "N805",     # first argument of a method should be named `self`
+    "S104",     # binding to all interfaces (host="0.0.0.0")
+    "TD002",
+    "TD003",
+]
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 81
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
