@@ -5,7 +5,7 @@ Uses a React frontend and a FastAPI backend, connecting to a SQL database (SQLit
 
 ## Planned TODO
 
-- Need to complete backend.
+- Need to complete frontend.
 - Need to get LLM token.
 - Need to deploy.
 - Would like to Dockerize and provide basic orchestration with Docker Compose.
