@@ -5,6 +5,7 @@ from typing import Annotated
 from fastapi import APIRouter, BackgroundTasks, Cookie, Depends, HTTPException, Response
 from sqlalchemy.orm import Session
 
+from core.story_generator import StoryGenerator
 from db.database import SessionLocal, get_db
 from models.job import StoryJob
 from models.story import Story, StoryNode
@@ -55,7 +56,7 @@ def create_story(
 
     # TODO: Add background tasks, generate story
     background_tasks.add_task(
-        generate_story_task(job_id=job_id, theme=request.theme, session_id=session_id)
+        generate_story_task, job_id=job_id, theme=request.theme, session_id=session_id
     )
 
     return job
@@ -79,9 +80,9 @@ def generate_story_task(job_id: str, theme: str, session_id: str) -> None:
             job.status = "processing"
             db.commit()
 
-            story = {}  # TODO: generate story
+            story = StoryGenerator.genereate_story(db, session_id, theme)
 
-            job.story_id = 1  # TODO: update story_id
+            job.story_id = story.id
             job.status = "completed"
             job.completed_at = datetime.now(tz=UTC)
             db.commit()
@@ -104,8 +105,10 @@ def get_complete_story(story_id: int, db: Annotated[Session, Depends(get_db)]) -
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
 
+    complete_story = build_complete_story_tree(db, story)
+
     # TODO: parse story
-    return story
+    return complete_story
 
 
 def build_complete_story_tree(db: Session, story: Story) -> None:
