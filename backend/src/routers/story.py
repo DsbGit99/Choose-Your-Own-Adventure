@@ -54,7 +54,6 @@ def create_story(
     db.add(job)
     db.commit()
 
-    # TODO: Add background tasks, generate story
     background_tasks.add_task(
         generate_story_task, job_id=job_id, theme=request.theme, session_id=session_id
     )
@@ -88,8 +87,8 @@ def generate_story_task(job_id: str, theme: str, session_id: str) -> None:
             db.commit()
 
         except Exception as e:  # noqa: BLE001
-            job.story_id = 1  # TODO: update story_id
             job.status = "failed"
+            job.completed_at = datetime.now(tz=UTC)
             job.error = str(e)
             db.commit()
 
@@ -105,11 +104,34 @@ def get_complete_story(story_id: int, db: Annotated[Session, Depends(get_db)]) -
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
 
-    complete_story = build_complete_story_tree(db, story)
-
-    # TODO: parse story
-    return complete_story
+    return build_complete_story_tree(db, story)
 
 
-def build_complete_story_tree(db: Session, story: Story) -> None:
-    pass
+def build_complete_story_tree(db: Session, story: Story) -> CompleteStoryResponse:
+    nodes = db.query(StoryNode).filter(StoryNode.story_id == story.id).all()
+
+    node_dict = {}
+
+    for node in nodes:
+        node_response = CompleteStoryNodeResponse(
+            id=node.id,
+            content=node.content,
+            is_ending=node.is_ending,
+            is_winning_ending=node.is_winning_ending,
+            options=node.options,
+        )
+        node_dict[node.id] = node_response
+
+    root_node = next((node for node in nodes if node.is_root), None)
+
+    if not root_node:
+        raise HTTPException(status_code=500, detail="Story root node not found")
+
+    return CompleteStoryResponse(
+        id=story.id,
+        title=story.title,
+        session_id=story.session_id,
+        created_at=story.created_at,
+        root_node=node_dict[root_node.id],
+        all_nodes=node_dict,
+    )
