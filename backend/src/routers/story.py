@@ -25,6 +25,8 @@ router = APIRouter(
 # -------------------------------- create_story ---------------------------------
 # -------------------------------------------------------------------------------
 
+# NOTE: Will be used by the StoryGenerator component.
+
 
 def get_session_id(session_id: str | None = Cookie(None)) -> str:
     # NOTE: Session ID is not about authentication, but rather is purposed for
@@ -103,6 +105,8 @@ def generate_story_task(job_id: str, theme: str, session_id: str) -> None:
 # -------------------------------------------------------------------------------
 # ----------------------------- get_complete_story ------------------------------
 # -------------------------------------------------------------------------------
+
+# NOTE: Will be used by the StoryLoader component.
 
 
 @router.get("/{story_id}/complete", response_model=CompleteStoryResponse)
