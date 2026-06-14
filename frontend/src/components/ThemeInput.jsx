@@ -17,6 +17,9 @@ function ThemeInput({onSubmit}) {
 
     This is because in react, e (event) is the singular default parameter
     provided to event handlers.
+
+    We also would have been able to likewise avoid currying if one of the state
+    variables declared above were passed.
     
     If this handler were a one-liner, it would have looked similar to
     this (in the form's input element).
