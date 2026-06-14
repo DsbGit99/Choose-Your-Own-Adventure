@@ -2,6 +2,8 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
+# BaseModel schemas for use by LLM.
+
 
 class StoryOptionLLM(BaseModel):
     text: str = Field(description="The text of the option shown to the user")

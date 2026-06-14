@@ -6,6 +6,14 @@ from db.database import Base
 
 
 class Story(Base):
+    """SQLAlchemy ORM model for story in database.
+
+    Parameters
+    ----------
+    Base : _type_
+        _description_
+    """
+
     __tablename__ = "stories"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -18,6 +26,14 @@ class Story(Base):
 
 
 class StoryNode(Base):
+    """SQLAlchemy ORM model for story nodes in database.
+
+    Parameters
+    ----------
+    Base : _type_
+        _description_
+    """
+
     __tablename__ = "story_nodes"
 
     id = Column(Integer, primary_key=True, index=True)

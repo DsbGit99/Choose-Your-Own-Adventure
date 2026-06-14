@@ -5,6 +5,14 @@ from db.database import Base
 
 
 class StoryJob(Base):
+    """SQLAlchemy ORM model for story jobs in database.
+
+    Parameters
+    ----------
+    Base : _type_
+        _description_
+    """
+
     __tablename__ = "story_jobs"
 
     id = Column(Integer, primary_key=True, index=True)

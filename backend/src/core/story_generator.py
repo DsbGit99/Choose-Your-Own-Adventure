@@ -12,14 +12,36 @@ load_dotenv()
 
 
 class StoryGenerator:
+    """A collection of class methods which can be used by the respective router
+    for generating stories.
+
+    Note that only the `genereate_story` method is public.
+    """
+
     @classmethod
     def _get_llm(cls) -> ChatOpenAI:
         return ChatOpenAI(model="gpt-4o-mini")
 
     @classmethod
     def genereate_story(
-        cls, db: Session, session_id: str, theme: str = "fantasy:"
+        cls, db: Session, session_id: str, theme: str = "fantasy"
     ) -> Story:
+        """Public-facing class method for generating stories.
+
+        Parameters
+        ----------
+        db : Session
+            The database session instance.
+        session_id : str
+            The browser session ID.
+        theme : _type_, optional
+            Story theme. By default "fantasy".
+
+        Returns
+        -------
+        Story
+            SQLAlchemy ORM model for story in database.
+        """
         # Get LLM
         llm = cls._get_llm()
 

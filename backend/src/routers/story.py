@@ -21,6 +21,10 @@ router = APIRouter(
     tags=["stories"],
 )
 
+# -------------------------------------------------------------------------------
+# -------------------------------- create_story ---------------------------------
+# -------------------------------------------------------------------------------
+
 
 def get_session_id(session_id: str | None = Cookie(None)) -> str:
     # NOTE: Session ID is not about authentication, but rather is purposed for
@@ -39,7 +43,7 @@ def create_story(
     request: CreateStoryRequest,
     background_tasks: BackgroundTasks,
     response: Response,
-    session_id: str,
+    session_id: Annotated[str, Depends(get_session_id)],
     db: Annotated[Session, Depends(get_db)],
 ) -> StoryJob:
 
@@ -94,6 +98,11 @@ def generate_story_task(job_id: str, theme: str, session_id: str) -> None:
 
     finally:
         db.close()
+
+
+# -------------------------------------------------------------------------------
+# ----------------------------- get_complete_story ------------------------------
+# -------------------------------------------------------------------------------
 
 
 @router.get("/{story_id}/complete", response_model=CompleteStoryResponse)
