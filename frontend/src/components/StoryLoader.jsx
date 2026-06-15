@@ -31,8 +31,8 @@ function StoryLoader() {
                 `${API_BASE_URL}/stories/${storyId}/complete`
             )
             setStory(response)
-        } catch (err) {
-            if (err.response?.status === 404) {
+        } catch (e) {
+            if (e.response?.status === 404) {
                 setError("Story is not found")
             }
             else {
