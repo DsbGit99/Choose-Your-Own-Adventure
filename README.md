@@ -1,6 +1,6 @@
 # Choose Your Own Adventure AI (Spring 2026)
 
-A RESTful web API allowing users to interact with an LLM (OpenAI GPT, via LangChain) to generate adventures.
+A RESTful web app allowing users to interact with an LLM (OpenAI GPT, via LangChain) to generate adventures.
 Uses a React frontend and a FastAPI backend, connecting to a SQL database (SQLite locally) using SQLAlchemy ORM.
 
 ## What happens when using it?
