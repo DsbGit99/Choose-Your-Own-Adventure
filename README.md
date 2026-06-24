@@ -30,4 +30,4 @@ Currently, this app only runs locally. Upon cloning this repo from the root of t
 ## Acknowledgements
 Credit to *Tech with Tim* on YouTube for providing a [project tutorial](https://www.youtube.com/watch?v=_1P0Uqk50Ps).
 
-**NOTE:** This is a pedagogical project. I have followed along while providing code comments, improvements, modernization as I see fit along the way.
+**NOTE:** This is a pedagogical project. I have followed along while providing code comments, improvements, and modernization as I see fit along the way.
